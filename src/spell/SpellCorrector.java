@@ -1,12 +1,25 @@
 package spell;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.Scanner;
 
 public class SpellCorrector implements ISpellCorrector {
+
+    private ITrie trie = new Trie();
+
     @Override
     public void useDictionary(String dictionaryFileName) throws IOException {
-        //Use Scanner class
-        //Make map from dictionary, key is word and value is frequency counts
+        File file = new File(dictionaryFileName);
+        if (file.exists()) {
+            var scanner = new Scanner(file);
+            while (scanner.hasNext()) {
+                var word = scanner.next();
+                trie.add(word);
+            }
+            return;
+        }
+        throw new IOException("File doesn't exist");
     }
 
     @Override
