@@ -2,11 +2,7 @@ package spell;
 
 public class Node implements INode {
     private int count = 0;
-    private final INode[] children;
-
-    public Node() {
-        children = new INode[26];
-    }
+    private INode[] children = new INode[26];
 
     @Override
     public int getValue() {
@@ -15,7 +11,7 @@ public class Node implements INode {
 
     @Override
     public void incrementValue() {
-        this.count += 1;
+        this.count++;
     }
 
     @Override
