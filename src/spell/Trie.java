@@ -1,9 +1,26 @@
 package spell;
 
 public class Trie implements ITrie {
+
+    private INode root = new Node();
+
     @Override
     public void add(String word) {
-
+        word = word.toLowerCase();
+        INode node = find(word);
+        if (node != null) {
+            node.incrementValue();
+        } else {
+            var children = root.getChildren();
+            var chars = word.toCharArray();
+            for (var i = 0; i < word.length(); i++) {
+                var childPos = chars[i] - 'a';
+                var childNode = children[childPos];
+                if (childNode == null) {
+                    var j = 1; //replace
+                }
+            }
+        }
     }
 
     @Override
@@ -13,7 +30,6 @@ public class Trie implements ITrie {
 
     @Override
     public int getWordCount() {
-
         return 0;
     }
 
