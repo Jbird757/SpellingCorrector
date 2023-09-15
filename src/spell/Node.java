@@ -1,11 +1,10 @@
 package spell;
 
 import java.util.Arrays;
-import java.util.Objects;
 
 public class Node implements INode {
     private int count = 0;
-    private INode[] children = new INode[26];
+    private final INode[] children = new INode[26];
 
     @Override
     public int getValue() {

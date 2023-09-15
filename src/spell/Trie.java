@@ -2,7 +2,7 @@ package spell;
 
 public class Trie implements ITrie {
 
-    private INode root = new Node();
+    private final INode root = new Node();
 
     @Override
     public void add(String word) {
@@ -12,59 +12,56 @@ public class Trie implements ITrie {
             node.incrementValue();
         } else {
             var children = root.getChildren();
-            var chars = word.toCharArray();
-            for (var i = 0; i < word.length(); i++) {
-                var childPos = chars[i] - 'a';
-                var childNode = children[childPos];
-                if (childNode == null) {
-                    var j = 1; //replace
-                }
-            }
+
+
         }
     }
 
     @Override
     public INode find(String word) {
         word = word.toLowerCase();
-        int index = word.charAt(0) - 'a';
-        var nextNode = root.children[index];
-        while (nextNode != null) {
-            word = word.substring(1);
-            nextNode = traverseTrie(nextNode, word);
-        }
-
-
-
-        /*
-        1. Start at root  ***
-        2. Check if root child exists for first letter ***
-        3. Go to root child ***
-        4. Pop off first letter of word ***
-        5. Check if next node child exists for new first letter
-        6. Go to next node child
-        7. Repeat steps 4-6 until word is finished
-         */
-        return null;
+        return findInTrie(root, word);
     }
 
-    private INode traverseTrie(INode node, String word) {
-        if (word == null) {
-            return null;
+    private INode findInTrie(INode node, String word) {
+        if (word.isEmpty()) {
+            return node;
         }
         int index = word.charAt(0) - 'a';
-        var nextNode = node.children[index];
-        return nextnode;
+        var nextNode = node.getChildren()[index];
+        return findInTrie(nextNode, word.substring(1));
     }
+
+    private int recursiveNodeCount(INode node, int nodeCount) {
+        nodeCount++;
+        for (INode child : node.getChildren()) {
+            nodeCount = recursiveNodeCount(child, nodeCount);
+        }
+        return nodeCount;
+    }
+
+    private int recursiveWordCount(INode node, int wordCount) {
+        if (node.getValue() > 0) {
+            wordCount++;
+        }
+        for (INode child : node.getChildren()) {
+            wordCount = recursiveWordCount(child, wordCount);
+        }
+        return wordCount;
+    }
+
 
     @Override
     public int getWordCount() {
-        return 0;
+        int count = 1;
+        count += recursiveWordCount(root, count);
+        return count;
     }
 
     @Override
     public int getNodeCount() {
         int count = 1;
-        
-        return 0;
+        count += recursiveNodeCount(root, count);
+        return count;
     }
 }
