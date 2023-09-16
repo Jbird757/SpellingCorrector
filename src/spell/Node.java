@@ -1,6 +1,7 @@
 package spell;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Node implements INode {
     private int count = 0;
@@ -28,16 +29,6 @@ public class Node implements INode {
         Node node = (Node) o;
         return count == node.count && Arrays.equals(children, node.children);
     }
-
-    @Override
-    public int hashCode() {
-        int result = count + 1;
-        for (var child : children) {
-            if (child != null) {
-                result += count;
-            }
-        }
-        result = 31 * result;
-        return result;
-    }
 }
+
+

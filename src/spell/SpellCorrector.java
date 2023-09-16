@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class SpellCorrector implements ISpellCorrector {
 
-    private ITrie trie = new Trie();
+    private final ITrie trie = new Trie();
 
     @Override
     public void useDictionary(String dictionaryFileName) throws IOException {
